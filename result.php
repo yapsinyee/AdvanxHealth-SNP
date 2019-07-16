@@ -3,6 +3,21 @@
 		$line = $_POST['SNP'];
 	}
 ?>
+
+<?php
+// mySQL
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "advanxhealth";
+
+$conn = mysqli_connect($servername,$username,$password,$dbname);
+
+if (!$conn){
+	die("Connection failed: " . mysqli_connection_error());
+}
+?>
+
 <head>
 
   <meta charset="utf-8">
@@ -40,21 +55,14 @@
   <section class="features-icons">
     <div class="container full-width-div">
       <div class="row">
-        <!--<div class="col-lg-12">
-          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-            <div class="features-icons-icon d-flex">
-              <i class="icon-screen-desktop m-auto text-primary"></i>
-            </div>
-            <h3>Enter SNP ID(s):</h3>
-          </div>
-        </div>-->
-		<div class="col-lg-12" style="overflow-x:auto;">
+		<div class="col-lg-12" style="padding-bottom:50px;">
 			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th>No</th>
 						<th>Query SNP ID</th>
-						<th>Matched SNP ID in ASA</th>
+						<th>Matched Ilumina ID</th>
+						<th>Name in ASA</th>
 						<th>IlmnStrand</th>
 						<th>Genotype</th>
 						<th>AddressA ID</th>
@@ -80,60 +88,61 @@
 				<tbody>
 					<?php 
 						$time_start = microtime(true);
-						
+						set_time_limit(0);
 						// For each input SNP
 						$separator = "\r\n";
 						$line = strtok($line, $separator);
 						$i = 1;
 						
 						while ($line !== false) {
-							$f = fopen("data/asa.csv", "r");
-							$found = false;
+							//$f = fopen("data/asa.csv", "r");
+							$sql = "SELECT * FROM asa WHERE Name LIKE '%{$line}%'";
+							$res = mysqli_query($conn,$sql);
 
-							while($row = fgetcsv($f)) {	//Check row by row
-								if(stripos($row[0],$line) !== false){	//Contain SNP in ASA
-									$found = true;
-									if($row[0] == $line){	// If EXACT MATCH
-										echo "<tr>";
-										echo "<td>".$i."</td>";
-										echo "<td style='color:#00CC00'>".$line."</td>";
-										foreach ($row as $value) {
-											echo "<td style='color:#00CC00'>".$value."</td>";
+							if(!$res){
+								echo "error ".mysqli_error($conn);
+							}
+
+							else{
+								if($res->num_rows == 0){	//If not found
+									echo "<tr style='background-color:#FEC0C0;'>";
+									echo "<td>".$i."</td>";
+									echo "<td>".$line."</td>";
+									for ($x = 1; $x <= 22; $x++) {
+										echo "<td>-</td>";
+									} 
+									echo "</tr>";
+									$i++;
+								}
+								
+								else{	// When interest matched asa
+									while ($row = $res->fetch_assoc()){
+										if($row['Name'] == $line){
+											echo "<tr style='background-color:#B4FFA3;'>";
+											echo "<td>".$i."</td>";
+											echo "<td>".$line."</td>";
+											foreach($row as $value){
+												echo "<td>$value</td>";
+											}
+											echo "</tr>";
 										}
-										/*for ($x = 0; $x <= 19; $x++) {
-											echo "<td style='color:#00CC00'>".$row[$x]."</td>";
-										} */
-										echo "</tr>";
-										$i++;
-									}
-									
-									else{
-										echo "<tr>";
-										echo "<td>".$i."</td>";
-										echo "<td>".$line."</td>";
-										foreach ($row as $value) {
-											echo "<td>".$value."</td>";
+
+										else{
+											echo "<tr style='background-color:#F9FFAE;'>";
+											echo "<td>".$i."</td>";
+											echo "<td>".$line."</td>";
+											foreach($row as $value){
+												echo "<td>$value</td>";
+											}
+											echo "</tr>";
 										}
-										echo "</tr>";
 										$i++;
 									}
 								}
 							}
-							
-							if(!$found){
-								echo "<tr>";
-								echo "<td>".$i."</td>";
-								echo "<td>".$line."</td>";
-								echo "<td style='color:red'>Not Found</td>";
-								for ($x = 0; $x <= 19; $x++) {
-									echo "<td style='color:red'>-</td>";
-								} 
-								echo "</tr>";
-								$i++;
-							}
-							fclose($f);
 							$line = strtok( $separator );
 						}
+						
 						
 						$time_end = microtime(true);
 						//dividing with 60 will give the execution time in minutes otherwise seconds
@@ -144,7 +153,6 @@
 			<?php
 				//execution time of the script
 				// if you get weird results, use number_format((float) $execution_time, 10) 
-				
 				$message = 'SNP Query Completed!\nTotal Execution Time: '.round($execution_time,2).' Mins';
 				echo "<script type='text/javascript'>alert('$message');</script>";
 			?>
