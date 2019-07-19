@@ -7,8 +7,8 @@
 <?php
 // mySQL
 $servername = "localhost";
-$username = "root";
-$password = "";
+$username = $DB_USER;
+$password = $DB_PASS;
 $dbname = "advanxhealth";
 
 $conn = mysqli_connect($servername,$username,$password,$dbname);
