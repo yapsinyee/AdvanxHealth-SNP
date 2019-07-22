@@ -5,10 +5,11 @@
 ?>
 
 <?php
+$username = getenv('DB_USER');
+$password = getenv('DB_KEY');
+
 // mySQL
 $servername = "localhost";
-$username = $DB_USER;
-$password = $DB_PASS;
 $dbname = "advanxhealth";
 
 $conn = mysqli_connect($servername,$username,$password,$dbname);
