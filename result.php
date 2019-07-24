@@ -2,21 +2,8 @@
 	if(isset($_POST['Submit'])){
 		$line = $_POST['SNP'];
 	}
-?>
 
-<?php
-$username = getenv('DB_USER');
-$password = getenv('DB_KEY');
-
-// mySQL
-$servername = "localhost";
-$dbname = "advanxhealth";
-
-$conn = mysqli_connect($servername,$username,$password,$dbname);
-
-if (!$conn){
-	die("Connection failed: " . mysqli_connection_error());
-}
+	include 'dbconfig.php';
 ?>
 
 <head>
@@ -87,67 +74,10 @@ if (!$conn){
 					</tr>
 				</thead>
 				<tbody>
-					<?php 
+					<?php
 						$time_start = microtime(true);
 						set_time_limit(0);
-						// For each input SNP
-						$separator = "\r\n";
-						$line = strtok($line, $separator);
-						$i = 1;
-						
-						while ($line !== false) {
-							//$f = fopen("data/asa.csv", "r");
-							$sql = "SELECT * FROM asa WHERE Name LIKE '%{$line}%'";
-							$res = mysqli_query($conn,$sql);
-
-							if(!$res){
-								echo "error ".mysqli_error($conn);
-							}
-
-							else{
-								if($res->num_rows == 0){	//If not found
-									echo "<tr style='background-color:#FEC0C0;'>";
-									echo "<td>".$i."</td>";
-									echo "<td>".$line."</td>";
-									for ($x = 1; $x <= 22; $x++) {
-										echo "<td>-</td>";
-									} 
-									echo "</tr>";
-									$i++;
-								}
-								
-								else{	// When interest matched asa
-									while ($row = $res->fetch_assoc()){
-										if($row['Name'] == $line){
-											echo "<tr style='background-color:#B4FFA3;'>";
-											echo "<td>".$i."</td>";
-											echo "<td>".$line."</td>";
-											foreach($row as $value){
-												echo "<td>$value</td>";
-											}
-											echo "</tr>";
-										}
-
-										else{
-											echo "<tr style='background-color:#F9FFAE;'>";
-											echo "<td>".$i."</td>";
-											echo "<td>".$line."</td>";
-											foreach($row as $value){
-												echo "<td>$value</td>";
-											}
-											echo "</tr>";
-										}
-										$i++;
-									}
-								}
-							}
-							$line = strtok( $separator );
-						}
-						
-						
-						$time_end = microtime(true);
-						//dividing with 60 will give the execution time in minutes otherwise seconds
-						$execution_time = ($time_end - $time_start)/60;
+						include 'query.php';
 					?>
 				</tbody>
 			</table>
@@ -170,23 +100,6 @@ if (!$conn){
           <p class="text-muted small mb-4 mb-lg-0"><i class='fas fa-user-graduate'></i> Sin Yee (syyap4@graduate.utm.my) | 2019</p>
         </div>
         <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
-          <!--<ul class="list-inline mb-0">
-            <li class="list-inline-item mr-3">
-              <a href="#">
-                <i class="fab fa-facebook fa-2x fa-fw"></i>
-              </a>
-            </li>
-            <li class="list-inline-item mr-3">
-              <a href="#">
-                <i class="fab fa-twitter-square fa-2x fa-fw"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <i class="fab fa-instagram fa-2x fa-fw"></i>
-              </a>
-            </li>
-          </ul>-->
         </div>
       </div>
     </div>
