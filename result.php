@@ -2,14 +2,10 @@
 	if(isset($_POST['Submit'])){
 		$line = $_POST['SNP'];
 	}
-<<<<<<< Updated upstream
-?>
-=======
 
 	include 'dbconfig.php';
 ?>
 
->>>>>>> Stashed changes
 <head>
 
   <meta charset="utf-8">
@@ -87,69 +83,8 @@
 				<tbody>
 					<?php
 						$time_start = microtime(true);
-<<<<<<< Updated upstream
-						
-						// For each input SNP
-						$separator = "\r\n";
-						$line = strtok($line, $separator);
-						$i = 1;
-						
-						while ($line !== false) {
-							$f = fopen("data/asa.csv", "r");
-							$found = false;
-
-							while($row = fgetcsv($f)) {	//Check row by row
-								if(stripos($row[0],$line) !== false){	//Contain SNP in ASA
-									$found = true;
-									if($row[0] == $line){	// If EXACT MATCH
-										echo "<tr>";
-										echo "<td>".$i."</td>";
-										echo "<td style='color:#00CC00'>".$line."</td>";
-										foreach ($row as $value) {
-											echo "<td style='color:#00CC00'>".$value."</td>";
-										}
-										/*for ($x = 0; $x <= 19; $x++) {
-											echo "<td style='color:#00CC00'>".$row[$x]."</td>";
-										} */
-										echo "</tr>";
-										$i++;
-									}
-									
-									else{
-										echo "<tr>";
-										echo "<td>".$i."</td>";
-										echo "<td>".$line."</td>";
-										foreach ($row as $value) {
-											echo "<td>".$value."</td>";
-										}
-										echo "</tr>";
-										$i++;
-									}
-								}
-							}
-							
-							if(!$found){
-								echo "<tr>";
-								echo "<td>".$i."</td>";
-								echo "<td>".$line."</td>";
-								echo "<td style='color:red'>Not Found</td>";
-								for ($x = 0; $x <= 19; $x++) {
-									echo "<td style='color:red'>-</td>";
-								} 
-								echo "</tr>";
-								$i++;
-							}
-							fclose($f);
-							$line = strtok( $separator );
-						}
-						
-						$time_end = microtime(true);
-						//dividing with 60 will give the execution time in minutes otherwise seconds
-						$execution_time = ($time_end - $time_start)/60;
-=======
 						set_time_limit(0);
 						include 'query.php';
->>>>>>> Stashed changes
 					?>
 				</tbody>
 			</table>
