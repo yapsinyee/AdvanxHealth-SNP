@@ -2,7 +2,14 @@
 	if(isset($_POST['Submit'])){
 		$line = $_POST['SNP'];
 	}
+<<<<<<< Updated upstream
 ?>
+=======
+
+	include 'dbconfig.php';
+?>
+
+>>>>>>> Stashed changes
 <head>
 
   <meta charset="utf-8">
@@ -78,8 +85,9 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php 
+					<?php
 						$time_start = microtime(true);
+<<<<<<< Updated upstream
 						
 						// For each input SNP
 						$separator = "\r\n";
@@ -138,6 +146,10 @@
 						$time_end = microtime(true);
 						//dividing with 60 will give the execution time in minutes otherwise seconds
 						$execution_time = ($time_end - $time_start)/60;
+=======
+						set_time_limit(0);
+						include 'query.php';
+>>>>>>> Stashed changes
 					?>
 				</tbody>
 			</table>
@@ -161,23 +173,6 @@
           <p class="text-muted small mb-4 mb-lg-0"><i class='fas fa-user-graduate'></i> Sin Yee (syyap4@graduate.utm.my) | 2019</p>
         </div>
         <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
-          <!--<ul class="list-inline mb-0">
-            <li class="list-inline-item mr-3">
-              <a href="#">
-                <i class="fab fa-facebook fa-2x fa-fw"></i>
-              </a>
-            </li>
-            <li class="list-inline-item mr-3">
-              <a href="#">
-                <i class="fab fa-twitter-square fa-2x fa-fw"></i>
-              </a>
-            </li>
-            <li class="list-inline-item">
-              <a href="#">
-                <i class="fab fa-instagram fa-2x fa-fw"></i>
-              </a>
-            </li>
-          </ul>-->
         </div>
       </div>
     </div>
