@@ -43,21 +43,14 @@
   <section class="features-icons">
     <div class="container full-width-div">
       <div class="row">
-        <!--<div class="col-lg-12">
-          <div class="features-icons-item mx-auto mb-5 mb-lg-0 mb-lg-3">
-            <div class="features-icons-icon d-flex">
-              <i class="icon-screen-desktop m-auto text-primary"></i>
-            </div>
-            <h3>Enter SNP ID(s):</h3>
-          </div>
-        </div>-->
-		<div class="col-lg-12" style="overflow-x:auto;">
+		<div class="col-lg-12" style="padding-bottom:50px;">
 			<table class="table table-striped">
 				<thead>
 					<tr>
 						<th>No</th>
 						<th>Query SNP ID</th>
-						<th>Matched SNP ID in ASA</th>
+						<th>Matched Ilumina ID</th>
+						<th>Name in ASA</th>
 						<th>IlmnStrand</th>
 						<th>Genotype</th>
 						<th>AddressA ID</th>
@@ -91,7 +84,6 @@
 			<?php
 				//execution time of the script
 				// if you get weird results, use number_format((float) $execution_time, 10) 
-				
 				$message = 'SNP Query Completed!\nTotal Execution Time: '.round($execution_time,2).' Mins';
 				echo "<script type='text/javascript'>alert('$message');</script>";
 			?>

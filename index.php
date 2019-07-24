@@ -56,7 +56,7 @@ session_start();
 				</div>
 				<div class="col-lg-12">
 					<br>
-					<button type="submit" class="btn btn-primary" name="Submit")>Submit</button>
+					<button type="submit" class="btn btn-primary" name="Submit">Submit</button>
 				</div>
 			  </div>
 		</form>
