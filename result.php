@@ -99,7 +99,14 @@
         <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
           <p class="text-muted small mb-4 mb-lg-0"><i class='fas fa-user-graduate'></i> Sin Yee (syyap4@graduate.utm.my) | 2019</p>
         </div>
-        <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
+        <div class="col-lg-2 text-center text-lg-left my-auto">
+			<p class="small mb-4 mb-lg-0"><i class="fas fa-square" style="color:#B4FFA3;"></i> Perfect Matched</p>
+        </div>
+		<div class="col-lg-2 h-100 text-center text-lg-left my-auto">
+			<p class="small mb-4 mb-lg-0"><i class="fas fa-square" style="color:#F9FFAE;"></i> Partial Matched</p> 
+        </div>
+		<div class="col-lg-2 h-100 text-center text-lg-left my-auto">
+			<p class="small mb-4 mb-lg-0"><i class="fas fa-square" style="color:#FEC0C0;"></i> Not Matched</p>
         </div>
       </div>
     </div>
