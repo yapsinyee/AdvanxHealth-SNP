@@ -3,6 +3,9 @@
 		$line = $_POST['SNP'];
 	}
 
+	// Trim whitespace at front & end of a string
+	$line = trim($line);
+
 	include 'dbconfig.php';
 ?>
 
